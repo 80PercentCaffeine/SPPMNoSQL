@@ -1,0 +1,36 @@
+<head>
+	<%if (query.Page == "MakeSales") { %>
+	<script src='scripts/makeSales.js'></script>
+	<% } %>
+	
+	<%if (query.Page == "ManageItems") { %>
+		<script src='scripts/itemManager.js'></script>
+	<% } %>
+	
+	<%if (query.Page == "ManageSales") { %>
+		<script src='scripts/salesRecordsManagement.js'></script>
+	<% } %>
+	
+	<%if (query.Page == "Predictions") { %>
+		<script src='scripts/prediction.js'></script>
+	<% } %>
+</head>
+
+<body>
+	<h1>index</h1>
+	<%if (query.Page == "MakeSales") { %>
+		<%- include makeSales.ejs %>
+	<% } %>
+	
+	<%if (query.Page == "ManageItems") { %>
+		<%- include itemManager.ejs %>
+	<% } %>
+	
+	<%if (query.Page == "ManageSales") { %>
+		<%- include salesRecordsManagement.ejs %>
+	<% } %>
+	
+	<%if (query.Page == "Predictions") { %>
+		<%- include prediction.ejs %>
+	<% } %>
+</body>
