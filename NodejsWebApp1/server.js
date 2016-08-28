@@ -36,10 +36,12 @@ function makeId(){
     });
 }
 
+// sets the directory of the client folder in reference to the server
 global.rootdir = __dirname + "\\" + "\client";
 var rootdir = __dirname + "\\" + "\client";
 var app = express();
 
+// needed forejs rendering
 app.use(cookieParser());
 app.engine('.html', require('ejs').renderFile)	//may not be necessary? http://expressjs.com/en/api.html#app.engine
 app.set("view engine", "ejs");
@@ -55,22 +57,8 @@ var prerouter = new express.Router()
     console.log("-------------");
     next();
 })
-    //does some basic formatting - normalising the return from different body/cookie parsers and methods, etc.
-	.use(function (req, res, next) {
-    if (typeof req.body == "string") {	//seems under some cicumstances, the body is not parsed from JSON properly, so we have to do it again here. TODO: investigate.
-        try {
-            req.body = JSON.parse(req.body);
-        } catch (e) {
-				//probably just means it's a normal string instead of a JSON string
-        }
-    }
-    if (typeof req.body !== "undefined" && Object.keys(req.body).length > 0) {
-        req.query = req.body;
-    }
-    next();
-});
 
-
+// Serves html pages. Renders ejs into html.
 var webserverrouter = new express.Router()
 .all('/', function (req, res) {
     res.render("index.html", { query: req.query }, function (err, html) {
@@ -95,11 +83,13 @@ var webserverrouter = new express.Router()
 //other static servings
 .use(express.static(rootdir))
 
+// parses requests from strings to something more useful
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.raw());
 
+// prints to console
 app.use("", prerouter);	//prerouter needs to come after bodyparser
 app.use("", webserverrouter);
 
