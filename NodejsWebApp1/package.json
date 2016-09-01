@@ -9,7 +9,7 @@
 	"console-stamp": "^0.2.2",
 	"cookie-parser": "^1.4.3",
 	"ejs": "^2.5.1",
-	"longjohn": "^1.15.2",
+	"longjohn": "^0.2.11",
 	"request": "^2.74.0",
     "mongoose": "^4.5.10",
     "express": "^4.5.10"
