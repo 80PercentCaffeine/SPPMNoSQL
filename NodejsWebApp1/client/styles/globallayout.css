@@ -1,0 +1,48 @@
+/*
+*@filename: mainlayout
+*@authour: Nguyen Hoang Trieu
+*@date: 26 Aug 2016
+*@last modified: 26 Aug 2016
+*@description: stylesheet for all pages layout
+*/
+
+body{
+	background-image: url("../styles/images/background.png");
+}
+
+header{
+	background-color:#262626;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+nav {
+	background-color:#e6e6e6;
+	padding: 10px;
+}
+
+section{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 15%;
+	margin-bottom: 5%;
+	width: 80%;
+	display: block;
+	padding-left: 3%;
+	padding-right: 3%;
+	border: 3px solid black;
+	background-color: #F9FAF5;
+}
+
+footer {
+	background-color:#e6e6e6;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	width: 100%;
+}

@@ -1,0 +1,43 @@
+/*
+*@filename: maintext
+*@authour: Nguyen Hoang Trieu
+*@date: 26 Aug 2016
+*@last modified: 26 Aug 2016
+*@description: stylesheet for all pages layout
+*/
+
+body {
+	font-family: calibri;
+}
+
+header h1{
+	text-align: center;
+	color: #f2f2f2;
+	font-size: 36px;
+}
+
+nav {
+	text-align: center;
+}
+
+nav a {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+	color: black;
+	font-size: 18px;
+}
+
+footer {
+	text-align: center;
+}
+
+a:link, a:visited
+{
+	text-decoration: none;
+}
+
+nav a:hover, nav a:active {
+    background-color: gray;
+}
