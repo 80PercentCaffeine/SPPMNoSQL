@@ -1,36 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<%if (query.Page == "MakeSales") { %>
-	<script src='scripts/makeSales.js'></script>
-	<% } %>
-	
-	<%if (query.Page == "ManageItems") { %>
-		<script src='scripts/itemManager.js'></script>
-	<% } %>
-	
-	<%if (query.Page == "ManageSales") { %>
-		<script src='scripts/salesRecordsManagement.js'></script>
-	<% } %>
-	
-	<%if (query.Page == "Predictions") { %>
-		<script src='scripts/prediction.js'></script>
-	<% } %>
+	<meta charset="utf-8"/>
+	<meta name="description" content="NoSQL Team Project"/>
+	<meta name="keywords" content="HTML, CSS"/>
+	<meta name="version" content="1.0"/>
+	<meta name="author" content="Nguyen Hoang Trieu"/>
+	<title>Sale (Generic)</title>
+	<link href="styles/globallayout.css" rel="stylesheet"/>
+	<link href="styles/globaltext.css" rel="stylesheet"/>
 </head>
 
 <body>
-	<h1>index</h1>
-	<%if (query.Page == "MakeSales") { %>
-		<%- include makeSales.ejs %>
-	<% } %>
+	<header>
+		<!--Title-->
+		<h1>NoSQL Team Project</h1>
+		
+		<!-- menu -->
+		<nav>
+			<a href="index.html">SALES</a>
+			<a href="additem.html">ADD ITEM</a>
+			<a href="items.html">ITEMS</a>
+			<a href="record.html">RECORD</a>
+			<a href="notification.html">NOTIFICATION</a>
+		</nav>
+	</header>
 	
-	<%if (query.Page == "ManageItems") { %>
-		<%- include itemManager.ejs %>
-	<% } %>
+	<section>
+		<h2>This is sales generic page</h2>
+		<h2>Hello guys</h2>
+		<h2>Hello guys</h2>
+		<h2>Hello guys</h2>
+		<h2>Hello guys</h2>
+		<h2>Hello guys</h2>
+		<h2>Hello guys</h2>
+		<h2>Hello guys</h2>
+		<h2>Hello guys</h2>
+		<h2>Hello guys</h2>
+		<h2>Hello guys</h2>
+		<h2>Hello guys</h2>
+	</section>
 	
-	<%if (query.Page == "ManageSales") { %>
-		<%- include salesRecordsManagement.ejs %>
-	<% } %>
-	
-	<%if (query.Page == "Predictions") { %>
-		<%- include prediction.ejs %>
-	<% } %>
+	<footer>
+		<h4>Contact us: <a href="">nosqlteam@gmail.com</a></h4>
+	</footer>
 </body>
+</html>
