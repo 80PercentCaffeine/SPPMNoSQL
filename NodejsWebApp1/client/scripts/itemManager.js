@@ -33,9 +33,14 @@ function setupTable(docs){
     var itemTable = document.getElementById("itemDisplay");
     itemTable.innerHTML = "";
     var tr = document.createElement("tr");
+    //delete button
+    var td = document.createElement("td");
+    tr.appendChild(td);
+    //name
     var td = document.createElement("td");
     td.innerHTML = "Name";
     tr.appendChild(td);
+    //price
     var td = document.createElement("td");
     td.innerHTML = "Price";
     tr.appendChild(td);
@@ -43,7 +48,16 @@ function setupTable(docs){
 
     for (var i = 0; i < docs.length; i++) {
         var tr = document.createElement("tr");
-        console.log(docs[i].name)
+        var td = document.createElement("td");
+        var deleteButton = document.createElement("img");
+        deleteButton.src = "images/deleteButton.jpg";
+        deleteButton.onclick = (function (UUID) {
+            return function () {
+                deleteItem(UUID)
+            }
+        })(docs[i].UUID);
+        td.appendChild(deleteButton);
+        tr.appendChild(td);
         var td = document.createElement("td");
         td.innerHTML = docs[i].name;
         tr.appendChild(td);
@@ -71,11 +85,22 @@ function displayItem(UUID){
 function addItem() {
     console.log(makeId());
     items.push({ "UUID": makeId(), "name": "", "price": "$0" });
+    // add to db
     setupTable(items);
 }
 
 function deleteItem(UUID) {
-    console.log(UUID);
+    var itemIndex = -1;
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].UUID == UUID) {
+            itemIndex = i;
+            // remove from db
+        }
+    }
+    if (itemIndex > -1) {
+        items.splice(itemIndex, 1);
+        setupTable(items);
+    }
 }
 
 // TODO: replace with db call.
