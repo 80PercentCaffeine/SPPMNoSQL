@@ -1,4 +1,14 @@
-<table id="itemDisplay">
-
-</table>
-<image onclick="addItem()" src="addButton.jpg"/>
+<div>
+  <div id="leftPanel">
+    <table id="itemDisplay">
+    </table>
+    <image onclick="addItem()" src="addButton.jpg"/>
+  </div>
+  <div id="rightPanel">
+    Title:         <input onchange="updateItem()" id="itemTitle"></input>
+    Description:   <input onchange="updateItem()" id="itemDesc"></input>
+    Ticket price: $<input onchange="updateItem()" id="itemPrice"></input>
+    Cost price:   $<input onchange="updateItem()" id="itemCostPrice"></input>
+    Stock:         <input onchange="updateItem()" id="itemStock"></input>
+  </div>
+</div>

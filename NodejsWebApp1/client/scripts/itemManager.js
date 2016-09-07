@@ -1,4 +1,5 @@
 var items = [];
+var activeItem;
 
 // This function creates a UUID that is nigh impossible to occur twice. (This function was taken from a previous project of Will Truscott's (9992022))
 function makeId() {
@@ -53,7 +54,7 @@ function setupTable(docs){
         deleteButton.src = "images/deleteButton.jpg";
         deleteButton.onclick = (function (UUID) {
             return function () {
-                deleteItem(UUID)
+                deleteItem(UUID);
             }
         })(docs[i].UUID);
         td.appendChild(deleteButton);
@@ -76,15 +77,19 @@ function setupTable(docs){
 function displayItem(UUID){
     for (var i = 0; i < items.length; i++) {
         if (items[i].UUID == UUID) {
-            var toDisplay = items[i];
-            console.log(items[i].name);
+            activeItem = items[i];
         }
     }
+
+    document.getElementById("itemTitle").value = activeItem.name;
+    document.getElementById("itemDesc").value = activeItem.description;
+    document.getElementById("itemPrice").value = activeItem.price;
+    document.getElementById("itemCostPrice").value = activeItem.costprice;
+    document.getElementById("itemStock").value = activeItem.stock;
 }
 
 function addItem() {
-    console.log(makeId());
-    items.push({ "UUID": makeId(), "name": "", "price": "$0" });
+    items.push({ "UUID": makeId(), "name": "", "description": "desc", "price": "$0", "costprice": "$0", "stock":5 });
     // add to db
     setupTable(items);
 }
@@ -101,6 +106,18 @@ function deleteItem(UUID) {
         items.splice(itemIndex, 1);
         setupTable(items);
     }
+}
+
+function updateItem(){
+    activeItem.name = document.getElementById("itemTitle").value;
+    activeItem.description = document.getElementById("itemDesc").value;
+    activeItem.price = document.getElementById("itemPrice").value;
+    activeItem.costprice = document.getElementById("itemCostPrice").value;
+    activeItem.stock = document.getElementById("itemStock").value;
+
+    //Update in db
+
+    setupTable(items);
 }
 
 // TODO: replace with db call.
