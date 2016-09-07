@@ -51,7 +51,7 @@ function setupTable(docs){
         var tr = document.createElement("tr");
         var td = document.createElement("td");
         var deleteButton = document.createElement("img");
-        deleteButton.src = "images/deleteButton.jpg";
+        deleteButton.src = "images/deleteButton.png";
         deleteButton.onclick = (function (UUID) {
             return function () {
                 deleteItem(UUID);

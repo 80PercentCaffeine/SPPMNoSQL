@@ -35,6 +35,8 @@
     <Compile Include="client\scripts\prediction.js" />
     <Compile Include="client\scripts\salesRecordsManagement.js" />
     <Compile Include="server.js" />
+    <Content Include="client\images\addButton.png" />
+    <Content Include="client\images\deleteButton.png" />
     <Content Include="client\index.html" />
     <Content Include="client\itemManager.ejs" />
     <Content Include="client\makeSales.ejs" />
@@ -50,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="client\" />
+    <Folder Include="client\images\" />
     <Folder Include="client\scripts\" />
     <Folder Include="client\styles\" />
   </ItemGroup>
