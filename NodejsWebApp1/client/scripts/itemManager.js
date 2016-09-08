@@ -80,12 +80,22 @@ function displayItem(UUID){
             activeItem = items[i];
         }
     }
-
-    document.getElementById("itemTitle").value = activeItem.name;
-    document.getElementById("itemDesc").value = activeItem.description;
-    document.getElementById("itemPrice").value = activeItem.price;
-    document.getElementById("itemCostPrice").value = activeItem.costprice;
-    document.getElementById("itemStock").value = activeItem.stock;
+	
+	if(activeItem.name != undefined){
+		document.getElementById("itemTitle").value = activeItem.name;
+	}
+	if(activeItem.description != undefined){
+		document.getElementById("itemDesc").value = activeItem.description;
+	}
+	if(activeItem.price != undefined){
+		document.getElementById("itemPrice").value = activeItem.price;
+	}
+	if(activeItem.costprice != undefined){
+		document.getElementById("itemCostPrice").value = activeItem.costprice;
+	}
+	if(activeItem.stock != undefined){
+		document.getElementById("itemStock").value = activeItem.stock;
+	}
 }
 
 function addItem() {
@@ -109,22 +119,49 @@ function deleteItem(UUID) {
 }
 
 function updateItem(){
-    activeItem.name = document.getElementById("itemTitle").value;
-    activeItem.description = document.getElementById("itemDesc").value;
-    activeItem.price = document.getElementById("itemPrice").value;
-    activeItem.costprice = document.getElementById("itemCostPrice").value;
-    activeItem.stock = document.getElementById("itemStock").value;
+	if(document.getElementById("itemTitle").value != undefined){
+		activeItem.name = document.getElementById("itemTitle").value;
+	}
+	if(document.getElementById("itemDesc").value != undefined){
+		activeItem.description = document.getElementById("itemDesc").value;
+	}
+	if(document.getElementById("itemPrice").value != undefined){
+		activeItem.price = document.getElementById("itemPrice").value;
+	}
+	if(document.getElementById("itemCostPrice").value != undefined){
+		activeItem.costprice = document.getElementById("itemCostPrice").value;
+	}
+	if(document.getElementById("itemStock").value != undefined){
+		activeItem.stock = document.getElementById("itemStock").value;
+	}
 
     //Update in db
-
     setupTable(items);
+}
+
+function searchItems(){
+    var searchBar = document.getElementById("searchBar");
+	if(searchBar.value != undefined &&searchBar.value != ""){
+		var matchesQuery = [];
+		for(var i = 0; i < fakeDatabase.length; i++){
+			if(fakeDatabase[i].name.indexOf(searchBar.value) > -1){
+				matchesQuery.push(fakeDatabase[i]);
+			}
+		}
+		setupTable(matchesQuery);
+	}
+	else{
+		setupTable(fakeDatabase);
+	}
 }
 
 // TODO: replace with db call.
 function init(){
-	setupTable([
-        { "UUID": makeId(), "name": "hi", "price": "$10" }, 
-        { "UUID": makeId(), "name": "hello", "price": "$20" }, 
-        { "UUID": makeId(), "name": "hello2", "price": "$11" }
-    ]);
+	setupTable(fakeDatabase);
 }
+
+var fakeDatabase = [
+    { "UUID": makeId(), "name": "hi", "price": "10" }, 
+    { "UUID": makeId(), "name": "hello", "price": "20" }, 
+    { "UUID": makeId(), "name": "hello2", "price": "11" }
+]
