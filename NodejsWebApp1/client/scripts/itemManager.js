@@ -191,7 +191,7 @@ function init(){
 }
 
 var fakeDatabase = [
-    { "UUID": makeId(), "name": "hi", "price": "10" }, 
-    { "UUID": makeId(), "name": "hello", "price": "20" }, 
-    { "UUID": makeId(), "name": "hello2", "price": "11" }
+    { "UUID": makeId(), "name": "hi", "price": "10", "costprice": "5" }, 
+    { "UUID": makeId(), "name": "hello", "price": "20", "costprice": "10" }, 
+	{ "UUID": makeId(), "name": "hello2", "price": "11", "costprice": "5" }
 ]
