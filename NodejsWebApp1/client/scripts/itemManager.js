@@ -40,10 +40,20 @@ function setupTable(docs){
     //name
     var td = document.createElement("td");
     td.innerHTML = "Name";
+	td.onclick = (function () {
+		return function () {
+			sortImages("name");
+		}
+	})();
     tr.appendChild(td);
     //price
     var td = document.createElement("td");
     td.innerHTML = "Price";
+	td.onclick = (function () {
+		return function () {
+			sortImages("price");
+		}
+	})();
     tr.appendChild(td);
     itemTable.appendChild(tr);
 
@@ -153,6 +163,26 @@ function searchItems(){
 	else{
 		setupTable(fakeDatabase);
 	}
+}
+
+function sortImages(sortType){
+	if(sortType == "name"){
+		items.sort(function sortName(a,b){
+			if(a.name > b.name){
+				return 1;
+			}
+			return -1;
+		})
+	}
+	else if(sortType == "price"){
+		items.sort(function sortName(a,b){
+			if(a.price > b.price){
+				return 1;
+			}
+			return -1;
+		})
+	}
+	setupTable(items);
 }
 
 // TODO: replace with db call.
