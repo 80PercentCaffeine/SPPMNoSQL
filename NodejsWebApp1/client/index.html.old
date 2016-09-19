@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="description" content="NoSQL Team Project"/>
+	<meta name="keywords" content="HTML, CSS"/>
+	<meta name="version" content="1.0"/>
+	<meta name="author" content="Nguyen Hoang Trieu"/>
+	<title>Sale (Generic)</title>
+	<link href="styles/globallayout.css" rel="stylesheet"/>
+	<link href="styles/globaltext.css" rel="stylesheet"/>
+	<link href="styles/style.css" rel="stylesheet"/>
+
+	<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
+	<%if (query.Page == "MakeSales") { %>
+	    <script src='scripts/makeSales2.js'></script>
+	<% } %>
+
+	<%if (query.Page == "ManageItems") { %>
+	    <script src='scripts/itemManager.js'></script>
+	<% } %>
+
+	<%if (query.Page == "ManageSales") { %>
+	    <script src='scripts/salesRecordsManagement.js'></script>
+	<% } %>
+
+	<%if (query.Page == "Predictions") { %>
+	    <script src='scripts/prediction.js'></script>
+	<% } %>
+</head>
+
+<body onload="init()">
+	<header>
+		<!--Title-->
+		<h1>NoSQL Team Project</h1>
+		
+		<!-- menu -->
+		<nav>
+			<a href="?Page=MakeSales">MAKE SALES</a>
+			<a href="?Page=ManageItems">MANAGE ITEMS</a>
+			<a href="?Page=ManageSales">VIEW SALES RECORDS</a>
+			<a href="?Page=Predictions">PREDICTIONS</a>
+		</nav>
+	</header>
+	
+	<section>
+		<%if (query.Page == "MakeSales") { %>
+		<%- include makeSales2.ejs %>
+		<% } %>
+
+		<%if (query.Page == "ManageItems") { %>
+		<%- include itemManager.ejs %>
+		<% } %>
+
+		<%if (query.Page == "ManageSales") { %>
+		<%- include salesRecordsManagement.ejs %>
+		<% } %>
+
+		<%if (query.Page == "Predictions") { %>
+		<%- include prediction.ejs %>
+		<% } %>
+	</section>
+	
+	<footer>
+		<h4>Contact us: <a href="">nosqlteam@gmail.com</a></h4>
+	</footer>
+</body>
+</html>

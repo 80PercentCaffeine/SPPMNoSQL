@@ -1,4 +1,4 @@
-﻿var crypto = require('crypto');
+var crypto = require('crypto');
 var http = require('http');
 var express = require('express');
 var mongoose = require('mongoose');
@@ -37,8 +37,8 @@ function makeId(){
 }
 
 // sets the directory of the client folder in reference to the server
-global.rootdir = __dirname + "\\" + "\client";
-var rootdir = __dirname + "\\" + "\client";
+global.rootdir = __dirname + "/client";
+var rootdir = __dirname + "/client";
 var app = express();
 
 // needed forejs rendering

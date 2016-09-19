@@ -1,66 +1,53 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8"/>
-	<meta name="description" content="NoSQL Team Project"/>
-	<meta name="keywords" content="HTML, CSS"/>
-	<meta name="version" content="1.0"/>
-	<meta name="author" content="Nguyen Hoang Trieu"/>
-	<title>Sale (Generic)</title>
-	<link href="styles/globallayout.css" rel="stylesheet"/>
-	<link href="styles/globaltext.css" rel="stylesheet"/>
+<meta charset="utf-8" />
+<title>Task</title>
 
-	<%if (query.Page == "MakeSales") { %>
-	    <script src='scripts/makeSales.js'></script>
-	<% } %>
+<link rel="stylesheet" href="styles/style.css" type="text/css" media="screen" />
+<!--[if IE]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
+<script src="//code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+<script type="text/javascript" src="scripts/tabbed.layout.js"></script>
+<script type="text/javascript" src="scripts/makeSales2.js"></script>
 
-	<%if (query.Page == "ManageItems") { %>
-	    <script src='scripts/itemManager.js'></script>
-	<% } %>
+<script src='scripts/itemManager.js'></script>
 
-	<%if (query.Page == "ManageSales") { %>
-	    <script src='scripts/salesRecordsManagement.js'></script>
-	<% } %>
-
-	<%if (query.Page == "Predictions") { %>
-	    <script src='scripts/prediction.js'></script>
-	<% } %>
 </head>
+<body>
 
-<body onload="init()">
-	<header>
-		<!--Title-->
-		<h1>NoSQL Team Project</h1>
-		
-		<!-- menu -->
-		<nav>
-			<a href="http://localhost:2089/?Page=MakeSales">MAKE SALES</a>
-			<a href="http://localhost:2089/?Page=ManageItems">MANAGE ITEMS</a>
-			<a href="http://localhost:2089/?Page=ManageSales">VIEW SALES RECORDS</a>
-			<a href="http://localhost:2089/?Page=Predictions">PREDICTIONS</a>
-		</nav>
-	</header>
-	
-	<section>
-		<%if (query.Page == "MakeSales") { %>
-		<%- include makeSales.ejs %>
-		<% } %>
+<header>
+	<h1>Sales Manager</h1>
+</header>
 
-		<%if (query.Page == "ManageItems") { %>
+<nav> 
+    <ul>
+        <li><a href="#tab1">Sales</a><img class="menuimg" src="images\shopping cart.png"></li>
+        <li><a href="#tab2">Add item</a><img class="menuimg" src="images\plus.png"></li>
+        <li><a href="#tab3">Items</a><img class="menuimg" src="images\invoice.png"></li>
+        <li><a href="#tab4">Record</a><img class="menuimg" src="images\documentwriteicon.png"></li>	
+        <li><a href="#tab5">Notification</a><img class="menuimg" src="images\information.png"></li>
+    </ul>
+</nav>
+      
+<section class="tab" id="tab1">
+		<%- include makeSales2.ejs %>
+</section>
+<section class="tab" id="tab2">
 		<%- include itemManager.ejs %>
-		<% } %>
+</section>
 
-		<%if (query.Page == "ManageSales") { %>
-		<%- include salesRecordsManagement.ejs %>
-		<% } %>
+<section class="tab" id="tab3">
+	<p>Section number 3</p>
+</section>
 
-		<%if (query.Page == "Predictions") { %>
-		<%- include prediction.ejs %>
-		<% } %>
-	</section>
-	
-	<footer>
-		<h4>Contact us: <a href="">nosqlteam@gmail.com</a></h4>
-	</footer>
+<section class="tab" id="tab4">
+	<p>Section number 4</p>
+</section>
+
+<section class="tab" id="tab5">
+    <p>Section number 5</p>
+</section>
+   
 </body>
 </html>
+
