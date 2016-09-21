@@ -301,3 +301,21 @@ nav li a{
 section.tab{
     border: none;
 } */
+
+/*Add css for div of each tab (insert ejs)*/
+.insertSection {
+	border: solid #b3b3b3 5px;
+	padding: 10px;
+	border-radius: 5px;
+	display: block;
+	background-color: #e0ebeb;
+}
+
+#addItemForm {
+	margin-left: 35%;
+	margin-right: 35%;
+}
+
+form legend {
+	font-weight: bold;
+}
