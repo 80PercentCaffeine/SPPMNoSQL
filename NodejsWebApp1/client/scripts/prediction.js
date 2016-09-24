@@ -168,8 +168,27 @@ function itemSpecificReport(UUID) {
 
 }
 
-function itemSpecificPrediction(UUID) {
+function downloadCsv(tableName) {
+	var reportTable = document.getElementById(tableName);
+	console.log(reportTable);
+	console.log(reportTable.childNodes);
+	var exportString = "";
+	for (var i = 0; i < reportTable.childNodes.length; i++) {
+		for (var j = 0; j < reportTable.childNodes[i].childNodes.length; j++) {
+			exportString += reportTable.childNodes[i].childNodes[j].innerHTML + ",";
+		}
+		exportString += "\n";
+	}
+	var csvContent = "data:text/csv;charset=utf-8,";
+	csvContent += exportString;
 
+	var encodedUri = encodeURI(csvContent);
+	var link = document.createElement("a");
+	link.setAttribute("href", encodedUri);
+	link.setAttribute("download", reportTable.childNodes[reportTable.childNodes.length - 1].childNodes[0].innerHTML + ".csv");
+	document.body.appendChild(link); // Required for FF
+	
+	link.click(); // This will download the data file named "my_data.csv".
 }
 
 function sortItemsByProfit30(a, b) {
