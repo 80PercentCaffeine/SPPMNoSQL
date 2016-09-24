@@ -120,13 +120,13 @@ function addItemSpecifficReportFromRange() {
 	var totalIncomeThisPeriod = 0;
 	var profitIncomeThisPeriod = 0;
 	var averageSaleThisWeek = 0;
+	var itemPointer;
 
 	for (var i = 0; i < salesList.length; i++) {
 		if (salesList[i].timestamp > minDate && salesList[i].timestamp < maxDate) {
 			salesThisPeriod.push(salesList[i]);
 		}
 	}
-	var itemPointer;
 	for (var i = 0; i < itemList.length; i++) {
 		if (dropdownValue == itemList[i].UUID) {
 			itemPointer = itemList[i];
