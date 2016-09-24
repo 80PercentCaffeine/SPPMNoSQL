@@ -30,6 +30,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="client\scripts\index.js" />
     <Compile Include="client\scripts\itemManager.js" />
     <Compile Include="client\scripts\makeSales.js" />
     <Compile Include="client\scripts\prediction.js" />

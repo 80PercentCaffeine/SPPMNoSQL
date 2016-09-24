@@ -1,31 +1,3 @@
-// This function creates a UUID that is nigh impossible to occur twice. (This function was taken from a previous project of Will Truscott's (9992022))
-function makeId() {
-    var array = new Uint8Array(16);
-    var val = new Uint8Array(1);
-    crypto.getRandomValues(array);
-    var idx = 0;
-    var shouldincrement = false;
-    var uuidtemplate = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx";
-    var makeuuidregex = /[xy]/g;
-
-    return uuidtemplate.replace(makeuuidregex,
-		function (c) {
-			if (c == 'x') {
-				if (!shouldincrement) {
-					val[0] = array[idx] >>> 4;
-				} else {
-					val[0] = array[idx] << 4;
-					val[0] = val[0] >>> 4;
-					idx++;
-				}
-				shouldincrement = !shouldincrement;
-				return val[0].toString(16);
-			} else {
-				return (0x8 + (array[idx] >>> 6)).toString(16);
-			}
-		});
-}
-
 // list of items to fill sales with
 var itemList = [];
 // List of sales to predict things with
@@ -393,15 +365,15 @@ function init() {
 }
 
 var fakeItemsDatabase = [
-	{ "UUID": makeId(), "name": "hi", "price": 10, "costprice": 5 },
-    { "UUID": makeId(), "name": "hello", "price": 20, "costprice": 10 },
-	{ "UUID": makeId(), "name": "hello2", "price": 11, "costprice": 5 },
-	{ "UUID": makeId(), "name": "aaaa", "price": 11, "costprice": 5 }
+	{ "UUID": 1, "name": "hi", "price": 10, "costprice": 5 },
+    { "UUID": 2, "name": "hello", "price": 20, "costprice": 10 },
+	{ "UUID": 3, "name": "hello2", "price": 11, "costprice": 5 },
+	{ "UUID": 4, "name": "aaaa", "price": 11, "costprice": 5 }
 ]
 
 var fakeSalesDatabase = [
 	{
-		"UUID": makeId(),
+		"UUID": 5,
 		"items": [
 			fakeItemsDatabase[0].UUID,
 			fakeItemsDatabase[0].UUID,
@@ -415,7 +387,7 @@ var fakeSalesDatabase = [
 		"timestamp": 10
 	},
 	{
-		"UUID": makeId(),
+		"UUID": 6,
 		"items": [
 			fakeItemsDatabase[2].UUID,
 			fakeItemsDatabase[1].UUID
@@ -425,7 +397,7 @@ var fakeSalesDatabase = [
 		"timestamp": 1474521020219
 	},
 	{
-		"UUID": makeId(),
+		"UUID": 7,
 		"items": [
 			fakeItemsDatabase[2].UUID,
 			fakeItemsDatabase[1].UUID
@@ -435,7 +407,7 @@ var fakeSalesDatabase = [
 		"timestamp": 1474521010218
 	},
 	{
-		"UUID": makeId(),
+		"UUID": 8,
 		"items": [
 			fakeItemsDatabase[2].UUID,
 			fakeItemsDatabase[1].UUID
@@ -445,7 +417,7 @@ var fakeSalesDatabase = [
 		"timestamp": 1474521010218 - (ONE_DAY * 8)
 	},
 	{
-		"UUID": makeId(),
+		"UUID": 9,
 		"items": [
 			fakeItemsDatabase[0].UUID,
 			fakeItemsDatabase[0].UUID
