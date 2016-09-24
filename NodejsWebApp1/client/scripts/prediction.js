@@ -7,23 +7,23 @@ function makeId() {
     var shouldincrement = false;
     var uuidtemplate = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx";
     var makeuuidregex = /[xy]/g;
-    
+
     return uuidtemplate.replace(makeuuidregex,
-			function (c) {
-        if (c == 'x') {
-            if (!shouldincrement) {
-                val[0] = array[idx] >>> 4;
-            } else {
-                val[0] = array[idx] << 4;
-                val[0] = val[0] >>> 4;
-                idx++;
-            }
-            shouldincrement = !shouldincrement;
-            return val[0].toString(16);
-        } else {
-            return (0x8 + (array[idx] >>> 6)).toString(16);
-        }
-    });
+		function (c) {
+			if (c == 'x') {
+				if (!shouldincrement) {
+					val[0] = array[idx] >>> 4;
+				} else {
+					val[0] = array[idx] << 4;
+					val[0] = val[0] >>> 4;
+					idx++;
+				}
+				shouldincrement = !shouldincrement;
+				return val[0].toString(16);
+			} else {
+				return (0x8 + (array[idx] >>> 6)).toString(16);
+			}
+		});
 }
 
 // list of items to fill sales with
@@ -32,22 +32,22 @@ var itemList = [];
 var salesList = [];
 const ONE_DAY = 86400000;
 
-function incomeBetween(start, end){
+function incomeBetween(start, end) {
 	var salesThisPeriod = [];
 	var totalIncomeThisPeriod = 0;
 	var profitIncomeThisPeriod = 0;
 	var averageSaleThisWeek = 0;
-	
-	for(var i = 0; i < salesList.length; i++){
-		if(salesList[i].timestamp > start && salesList[i].timestamp < end){
+
+	for (var i = 0; i < salesList.length; i++) {
+		if (salesList[i].timestamp > start && salesList[i].timestamp < end) {
 			salesThisPeriod.push(salesList[i]);
 		}
 	}
-	for(var i = 0; i < salesThisPeriod.length; i++){
+	for (var i = 0; i < salesThisPeriod.length; i++) {
 		totalIncomeThisPeriod += salesThisPeriod[i].total;
 		profitIncomeThisPeriod += salesThisPeriod[i].totalprofit;
 	}
-	return{
+	return {
 		"total": salesThisPeriod.length,
 		"income": totalIncomeThisPeriod,
 		"profit": profitIncomeThisPeriod,
@@ -56,7 +56,7 @@ function incomeBetween(start, end){
 	}
 }
 
-function addReport(period, report, tableId){
+function addReport(period, report, tableId) {
 	var reportTable = document.getElementById(tableId);
     var tr = document.createElement("tr");
     var td = document.createElement("td");
@@ -82,7 +82,7 @@ function addReport(period, report, tableId){
 	reportTable.appendChild(tr);
 }
 
-function addReportFromRange(){
+function addReportFromRange() {
 	var minDateValue = document.getElementById("minDate").value;
 	var maxDateValue = document.getElementById("maxDate").value;
 	var minDate = new Date(minDateValue).valueOf();
@@ -91,22 +91,27 @@ function addReportFromRange(){
 	addReport(minDateValue + " to " + maxDateValue, incomeBetween(minDate, maxDate), "reportDisplay");
 }
 
-function weeklyReport(){
+function weeklyReport() {
 	var timeNow = Date.now();
 	addReport("Last 7 days", incomeBetween(timeNow - (ONE_DAY * 7), timeNow), "reportDisplay");
 }
 
-function monthlyReport(){
+function monthlyReport() {
 	var timeNow = Date.now();
 	addReport("Last 30 days", incomeBetween(timeNow - (ONE_DAY * 30), timeNow), "reportDisplay");
 }
 
-function monthlyPrediction(){
-	
+function allTimeReport() {
+	var timeNow = Date.now();
+	addReport("All time", incomeBetween(0, timeNow), "reportDisplay");
 }
 
-function weeklyPrediction(){
-	
+function monthlyPrediction() {
+
+}
+
+function weeklyPrediction() {
+
 }
 
 function addItemSpecifficReportFromRange() {
@@ -139,9 +144,9 @@ function addItemSpecifficReportFromRange() {
 				itemSaleTotal++;
 			}
 		}
-	
+
 	}
-	 
+
 	addReport(itemPointer.name + " " + minDateValue + " to " + maxDateValue,
 		{
 			"total": itemSaleTotal,
@@ -163,11 +168,29 @@ function itemSpecificReport(UUID) {
 
 }
 
-function itemSpecificPrediction(UUID){
-	
+function itemSpecificPrediction(UUID) {
+
 }
 
-function setupPage(docsSales){
+function sortItemsByProfit30(a, b) {
+	if (a.totalSalesThisMonth * (a.price - a.costprice) < b.totalSalesThisMonth * (b.price - b.costprice)) {
+		return 1;
+	}
+	else {
+		return -1;
+	}
+}
+
+function sortItemsByProfitAllTime(a, b) {
+	if (a.totalSalesAllTime * (a.price - a.costprice) < b.totalSalesAllTime * (b.price - b.costprice)) {
+		return 1;
+	}
+	else {
+		return -1;
+	}
+}
+
+function setupPage(docsSales) {
 	salesList = docsSales;
 
 	// report list
@@ -210,12 +233,131 @@ function setupPage(docsSales){
     tr.appendChild(td);
 	reportTable.appendChild(tr);
 
-	
+	var profitTable = document.getElementById("itemProfitDisplay");
+	profitTable.innerHTML = "";
+    tr = document.createElement("tr");
+    td = document.createElement("td");
+	td.innerHTML = "Item name";
+    tr.appendChild(td);
+	td = document.createElement("td");
+	td.innerHTML = "Total sales";
+    tr.appendChild(td);
+	td = document.createElement("td");
+	td.innerHTML = "Total income";
+    tr.appendChild(td);
+	td = document.createElement("td");
+	td.innerHTML = "Total profit";
+    tr.appendChild(td);
+	profitTable.appendChild(tr);
+
+	var profitTable = document.getElementById("itemProfitDisplayAllTime");
+	profitTable.innerHTML = "";
+    tr = document.createElement("tr");
+    td = document.createElement("td");
+	td.innerHTML = "Item name";
+    tr.appendChild(td);
+	td = document.createElement("td");
+	td.innerHTML = "Total sales";
+    tr.appendChild(td);
+	td = document.createElement("td");
+	td.innerHTML = "Total income";
+    tr.appendChild(td);
+	td = document.createElement("td");
+	td.innerHTML = "Total profit";
+    tr.appendChild(td);
+	profitTable.appendChild(tr);
+
+	var now = Date.now().valueOf();
+	var thirtyDaysAgo = now - (ONE_DAY * 30);
+	var salesThisPeriod = [];
+	var salesAllTime = [];
+	for (var i = 0; i < salesList.length; i++) {
+		for (var j = 0; j < salesList[i].items.length; j++) {
+			for (var k = 0; k < itemList.length; k++) {
+				if (salesList[i].items[j] == itemList[k].UUID) {
+					salesList[i].items[j] = itemList[k];
+				}
+			}
+		}
+		if (salesList[i].timestamp > thirtyDaysAgo && salesList[i].timestamp < now) {
+			salesThisPeriod.push(salesList[i]);
+		}
+		salesAllTime.push(salesList[i]);
+	}
+	for (var i = 0; i < itemList.length; i++) {
+		itemList[i].totalSalesThisMonth = 0;
+		itemList[i].totalSalesAllTime = 0;
+	}
+	for (var i = 0; i < salesThisPeriod.length; i++) {
+		for (var j = 0; j < salesThisPeriod[i].items.length; j++) {
+			for (var k = 0; k < itemList.length; k++) {
+				if (salesThisPeriod[i].items[j].UUID == itemList[k].UUID) {
+					itemList[k].totalSalesThisMonth++;
+				}
+			}
+		}
+		
+	}
+	for (var i = 0; i < salesAllTime.length; i++) {
+		for (var j = 0; j < salesAllTime[i].items.length; j++) {
+			for (var k = 0; k < itemList.length; k++) {
+				if (salesAllTime[i].items[j].UUID == itemList[k].UUID) {
+					itemList[k].totalSalesAllTime++;
+				}
+			}
+		}
+	}
+
+	itemList.sort(sortItemsByProfit30);
+	var profitTable = document.getElementById("itemProfitDisplay");
+	for (var i = 0; i < itemList.length; i++) {
+		if (i > 10) {
+			break;
+		}
+		tr = document.createElement("tr");
+		td = document.createElement("td");
+		td.innerHTML = itemList[i].name;
+		tr.appendChild(td);
+		td = document.createElement("td");
+		td.innerHTML = itemList[i].totalSalesThisMonth;
+		tr.appendChild(td);
+		td = document.createElement("td");
+		td.innerHTML = itemList[i].totalSalesThisMonth * itemList[i].price;
+		tr.appendChild(td);
+		td = document.createElement("td");
+		td.innerHTML = itemList[i].totalSalesThisMonth * (itemList[i].price - itemList[i].costprice);
+		tr.appendChild(td);
+		profitTable.appendChild(tr);
+	}
+
+	itemList.sort(sortItemsByProfitAllTime);
+	var profitTable = document.getElementById("itemProfitDisplayAllTime");
+	for (var i = 0; i < itemList.length; i++) {
+		if (i > 10) {
+			break;
+		}
+		tr = document.createElement("tr");
+		td = document.createElement("td");
+		td.innerHTML = itemList[i].name;
+		tr.appendChild(td);
+		td = document.createElement("td");
+		td.innerHTML = itemList[i].totalSalesAllTime;
+		tr.appendChild(td);
+		td = document.createElement("td");
+		td.innerHTML = itemList[i].totalSalesAllTime * itemList[i].price;
+		tr.appendChild(td);
+		td = document.createElement("td");
+		td.innerHTML = itemList[i].totalSalesAllTime * (itemList[i].price - itemList[i].costprice);
+		tr.appendChild(td);
+		profitTable.appendChild(tr);
+	}
+
 	weeklyReport();
 	monthlyReport();
+	allTimeReport();
 }
 
-function setupItems(docsItems){
+function setupItems(docsItems) {
 	itemList = docsItems;
 	var dropdown = document.getElementById("itemDropdown");
 	for (var i = 0; i < itemList.length; i++) {
@@ -227,68 +369,69 @@ function setupItems(docsItems){
 	setupPage(fakeSalesDatabase)
 }
 
-function init(){
+function init() {
 	setupItems(fakeItemsDatabase);
 }
 
 var fakeItemsDatabase = [
-	{ "UUID": makeId(), "name": "hi", "price": 10, "costprice": 5 }, 
-    { "UUID": makeId(), "name": "hello", "price": 20, "costprice": 10 }, 
-	{ "UUID": makeId(), "name": "hello2", "price": 11, "costprice": 5 }
+	{ "UUID": makeId(), "name": "hi", "price": 10, "costprice": 5 },
+    { "UUID": makeId(), "name": "hello", "price": 20, "costprice": 10 },
+	{ "UUID": makeId(), "name": "hello2", "price": 11, "costprice": 5 },
+	{ "UUID": makeId(), "name": "aaaa", "price": 11, "costprice": 5 }
 ]
 
 var fakeSalesDatabase = [
 	{
-		"UUID":makeId(),
-		"items":[
-			fakeItemsDatabase[0],
-			fakeItemsDatabase[0],
-			fakeItemsDatabase[0],
-			fakeItemsDatabase[0],
-			fakeItemsDatabase[2],
-			fakeItemsDatabase[1]
+		"UUID": makeId(),
+		"items": [
+			fakeItemsDatabase[0].UUID,
+			fakeItemsDatabase[0].UUID,
+			fakeItemsDatabase[0].UUID,
+			fakeItemsDatabase[0].UUID,
+			fakeItemsDatabase[2].UUID,
+			fakeItemsDatabase[1].UUID
 		],
-		"total":71,
+		"total": 71,
 		"totalprofit": 35,
 		"timestamp": 10
 	},
 	{
-		"UUID":makeId(),
-		"items":[
-			fakeItemsDatabase[2],
-			fakeItemsDatabase[1]
+		"UUID": makeId(),
+		"items": [
+			fakeItemsDatabase[2].UUID,
+			fakeItemsDatabase[1].UUID
 		],
-		"total":31,
+		"total": 31,
 		"totalprofit": 15,
 		"timestamp": 1474521020219
 	},
 	{
-		"UUID":makeId(),
-		"items":[
-			fakeItemsDatabase[2],
-			fakeItemsDatabase[1]
+		"UUID": makeId(),
+		"items": [
+			fakeItemsDatabase[2].UUID,
+			fakeItemsDatabase[1].UUID
 		],
-		"total":31,
+		"total": 31,
 		"totalprofit": 15,
 		"timestamp": 1474521010218
 	},
 	{
-		"UUID":makeId(),
-		"items":[
-			fakeItemsDatabase[2],
-			fakeItemsDatabase[1]
+		"UUID": makeId(),
+		"items": [
+			fakeItemsDatabase[2].UUID,
+			fakeItemsDatabase[1].UUID
 		],
-		"total":31,
+		"total": 31,
 		"totalprofit": 15,
-		"timestamp": 1474521010218 - (ONE_DAY*8)
+		"timestamp": 1474521010218 - (ONE_DAY * 8)
 	},
 	{
-		"UUID":makeId(),
-		"items":[
-			fakeItemsDatabase[0],
-			fakeItemsDatabase[0]
+		"UUID": makeId(),
+		"items": [
+			fakeItemsDatabase[0].UUID,
+			fakeItemsDatabase[0].UUID
 		],
-		"total":20,
+		"total": 20,
 		"totalprofit": 10,
 		"timestamp": 1474521080000
 	}
