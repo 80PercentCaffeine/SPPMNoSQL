@@ -56,8 +56,8 @@ function incomeBetween(start, end){
 	}
 }
 
-function addReport(period, report){
-	var reportTable = document.getElementById("reportDisplay");
+function addReport(period, report, tableId){
+	var reportTable = document.getElementById(tableId);
     var tr = document.createElement("tr");
     var td = document.createElement("td");
 	td.innerHTML = period;
@@ -71,12 +71,14 @@ function addReport(period, report){
 	td = document.createElement("td");
 	td.innerHTML = report.profit;
     tr.appendChild(td);
-	td = document.createElement("td");
-	td.innerHTML = report.averageIncome;
-    tr.appendChild(td);
-	td = document.createElement("td");
-	td.innerHTML = report.averageProfit;
-    tr.appendChild(td);
+	if (report.averageIncome != undefined && report.averageIncome != NaN) {
+		td = document.createElement("td");
+		td.innerHTML = report.averageIncome;
+		tr.appendChild(td);
+		td = document.createElement("td");
+		td.innerHTML = report.averageProfit;
+		tr.appendChild(td);
+	}
 	reportTable.appendChild(tr);
 }
 
@@ -85,19 +87,18 @@ function addReportFromRange(){
 	var maxDateValue = document.getElementById("maxDate").value;
 	var minDate = new Date(minDateValue).valueOf();
 	var maxDate = new Date(maxDateValue).valueOf();
-	console.log(minDate);
-	console.log(maxDate);
-	addReport(minDateValue + " to " + maxDateValue, incomeBetween(minDate, maxDate));
+
+	addReport(minDateValue + " to " + maxDateValue, incomeBetween(minDate, maxDate), "reportDisplay");
 }
 
 function weeklyReport(){
 	var timeNow = Date.now();
-	addReport("Last 7 days", incomeBetween(timeNow - (ONE_DAY * 7), timeNow));
+	addReport("Last 7 days", incomeBetween(timeNow - (ONE_DAY * 7), timeNow), "reportDisplay");
 }
 
 function monthlyReport(){
 	var timeNow = Date.now();
-	addReport("Last 30 days", incomeBetween(timeNow - (ONE_DAY * 30), timeNow));
+	addReport("Last 30 days", incomeBetween(timeNow - (ONE_DAY * 30), timeNow), "reportDisplay");
 }
 
 function monthlyPrediction(){
@@ -108,17 +109,68 @@ function weeklyPrediction(){
 	
 }
 
-function itemSpecificPrediction(UUID){
+function addItemSpecifficReportFromRange() {
+	var dropdownValue = document.getElementById("itemDropdown").value;
+	var minDateValue = document.getElementById("itemMinDate").value;
+	var maxDateValue = document.getElementById("itemMaxDate").value;
+	var minDate = new Date(minDateValue).valueOf();
+	var maxDate = new Date(maxDateValue).valueOf();
+
+	var salesThisPeriod = [];
+	var totalIncomeThisPeriod = 0;
+	var profitIncomeThisPeriod = 0;
+	var averageSaleThisWeek = 0;
+
+	for (var i = 0; i < salesList.length; i++) {
+		if (salesList[i].timestamp > minDate && salesList[i].timestamp < maxDate) {
+			salesThisPeriod.push(salesList[i]);
+		}
+	}
+	var itemPointer;
+	for (var i = 0; i < itemList.length; i++) {
+		if (dropdownValue == itemList[i].UUID) {
+			itemPointer = itemList[i];
+		}
+	}
+	var itemSaleTotal = 0;
+	for (var i = 0; i < salesThisPeriod.length; i++) {
+		for (var j = 0; j < salesThisPeriod[i].items.length; j++) {
+			if (salesThisPeriod[i].items[j].UUID == itemPointer.UUID) {
+				itemSaleTotal++;
+			}
+		}
 	
+	}
+	 
+	addReport(itemPointer.name + " " + minDateValue + " to " + maxDateValue,
+		{
+			"total": itemSaleTotal,
+			"income": (itemPointer.price) * itemSaleTotal,
+			"profit": (itemPointer.price - itemPointer.costprice) * itemSaleTotal,
+			"averageIncome": undefined,
+			"averageProfit": undefined
+		},
+		"itemReportDisplay");
 }
 
-function salesSpecificPrediction(UUID){
+function itemSpecificReport(UUID) {
+	var itemToDisplay;
+	for (var i = 0; i < itemList.length; i++) {
+		if (itemList[i].UUID == UUID) {
+			itemToDisplay = itemList[i];
+		}
+	}
+
+}
+
+function itemSpecificPrediction(UUID){
 	
 }
 
 function setupPage(docsSales){
 	salesList = docsSales;
-	
+
+	// report list
 	var reportTable = document.getElementById("reportDisplay");
     reportTable.innerHTML = "";
     var tr = document.createElement("tr");
@@ -140,6 +192,24 @@ function setupPage(docsSales){
 	td.innerHTML = "Average profit";
     tr.appendChild(td);
 	reportTable.appendChild(tr);
+
+	// item specific report list
+	var reportTable = document.getElementById("itemReportDisplay");
+    reportTable.innerHTML = "";
+    tr = document.createElement("tr");
+    td = document.createElement("td");
+    tr.appendChild(td);
+	td = document.createElement("td");
+	td.innerHTML = "Total sales";
+    tr.appendChild(td);
+	td = document.createElement("td");
+	td.innerHTML = "Total income";
+    tr.appendChild(td);
+	td = document.createElement("td");
+	td.innerHTML = "Total profit";
+    tr.appendChild(td);
+	reportTable.appendChild(tr);
+
 	
 	weeklyReport();
 	monthlyReport();
@@ -147,6 +217,13 @@ function setupPage(docsSales){
 
 function setupItems(docsItems){
 	itemList = docsItems;
+	var dropdown = document.getElementById("itemDropdown");
+	for (var i = 0; i < itemList.length; i++) {
+		var dropdownOption = document.createElement("Option");
+		dropdownOption.innerHTML = itemList[i].name;
+		dropdownOption.value = itemList[i].UUID;
+		dropdown.appendChild(dropdownOption);
+	}
 	setupPage(fakeSalesDatabase)
 }
 
@@ -155,9 +232,9 @@ function init(){
 }
 
 var fakeItemsDatabase = [
-	{ "UUID": makeId(), "name": "hi", "price": "10", "costprice": "5" }, 
-    { "UUID": makeId(), "name": "hello", "price": "20", "costprice": "10" }, 
-	{ "UUID": makeId(), "name": "hello2", "price": "11", "costprice": "5" }
+	{ "UUID": makeId(), "name": "hi", "price": 10, "costprice": 5 }, 
+    { "UUID": makeId(), "name": "hello", "price": 20, "costprice": 10 }, 
+	{ "UUID": makeId(), "name": "hello2", "price": 11, "costprice": 5 }
 ]
 
 var fakeSalesDatabase = [
