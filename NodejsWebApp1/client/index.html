@@ -39,6 +39,10 @@
 			<a href="http://localhost:2089/?Page=ManageItems">MANAGE ITEMS</a>
 			<a href="http://localhost:2089/?Page=ManageSales">VIEW SALES RECORDS</a>
 			<a href="http://localhost:2089/?Page=Predictions">PREDICTIONS</a>
+			<div style="width:10%; position:center;"id="lowStockContainer" onmouseover="showLowStockItems()" onmouseout="hideLowStockItems()">
+				<h1 id="stockLowAlert">Stock is low</h1>
+				<div style="position:absolute; left:inherit" id="lowStockNotificationDisplay" hidden></div>
+			</div>
 		</nav>
 	</header>
 	
