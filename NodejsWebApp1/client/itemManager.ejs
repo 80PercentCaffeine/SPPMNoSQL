@@ -1,49 +1,53 @@
 <div class="insertSection">
-	<!--
-	<div id="leftPanel">
-		<div id="itemManagerSearch"  style="width: 100%; float: left;    
-			background: linear-gradient(to top left, #333, #ddd);    padding: 10px;
-			padding-right: 0px;
-			padding-left: 0;">
-			Search:<input onchange="searchItems()" id="searchBar"></input>
-		</div>
 
-		<table id="itemDisplay"></table>
-		<image onclick="addItem()" src="images/addButton.png"/>
+	<div id="addItemBlock">
+		<form id="addItemForm" action="" method="post">
+			<fieldset>
+				<legend>Item details</legend>
+					<p><label for="itemTitle">Title</label></p>
+					<p><input type="text" onchange="updateItem()" name="item title" id="itemTitle" maxlength="50" size="50" required="required" pattern="[A-Za-z]{1,25}"/></p>
+					
+					<p><label for="itemPrice">Ticket Price</label></p>
+					<p><input type="text" onchange="updateItem()" name="ticket price" id="itemPrice" maxlength="50" size="50" required="required" pattern="[0-9]{1,25}"/></p>
+					
+					<p><label for="itemCostPrice">Cost Price</label></p>
+					<p><input type="text" onchange="updateItem()" name="cost price" id="itemCostPrice" maxlength="50" size="50" required="required" pattern="[0-9]{1,25}"/></p>
+					
+					<p><label for="itemStock">Quantity</label></p>
+					<p><input type="text" onchange="updateItem()" name="item quantity" id="itemStock" maxlength="50" size="50" required="required" pattern="[0-9]{1,25}"/></p>
+					
+					<p><label for="itemDesc">Description</label></p>
+					<textarea name="item description" onchange="updateItem()" id="itemDesc" rows="6" cols="40" required="required"></textarea>
+			</fieldset>
+			<div>
+				<p><input type="submit" onclick="addItem()" value="Add"/>
+				<input type="reset" value="Reset form"/>
+				</p>
+			</div>
+		</form>
 	</div>
-  
-	<div id="rightPanel">
-		Title:         <input onchange="updateItem()" id="itemTitle"></input>
-		Description:   <input onchange="updateItem()" id="itemDesc"></input>
-		Ticket price: $<input onchange="updateItem()" id="itemPrice"></input>
-		Cost price:   $<input onchange="updateItem()" id="itemCostPrice"></input>
-		Stock:         <input onchange="updateItem()" id="itemStock"></input>
-	</div>
-	-->
 
-	<form id = "addItemForm">
-		<fieldset>
-			<legend>Item details</legend>
-				<p><label for="title">Title</label></p>
-				<p><input type="text" name="item title" id="title" maxlength="50" size="50" required="required" pattern="[A-Za-z]{1,25}"/></p>
-				
-				<p><label for="price">Ticket Price</label></p>
-				<p><input type="text" name="ticket price" id="price" maxlength="50" size="50" required="required" pattern="[0-9]{1,25}"/></p>
-				
-				<p><label for="cost">Cost Price</label></p>
-				<p><input type="text" name="cost price" id="cost" maxlength="50" size="50" required="required" pattern="[0-9]{1,25}"/></p>
-				
-				<p><label for="quantity">Quantity</label></p>
-				<p><input type="text" name="item quantity" id="quantity" maxlength="50" size="50" required="required" pattern="[0-9]{1,25}"/></p>
-				
-				<p><label for="description">Description</label></p>
-				<textarea name="item description" id="description" rows="6" cols="40" required="required"></textarea>
-		</fieldset>
-		<div>
-			<p><input type="submit" value="Add"/>
-			<input type="reset" value="Reset form"/>
-			</p>
+	<div id="itemManage">
+		<div id="leftPanel">
+			<div id="itemManagerSearch"  style="width: 100%; float: left;    
+				background: linear-gradient(to top left, #333, #ddd);    padding: 10px;
+				padding-right: 0px;
+				padding-left: 0;">
+				Search:<input onchange="searchItems()" id="searchBar"></input>
+			</div>
+
+			<table id="itemDisplay"></table>
+			<!--<image onclick="addItem()" src="images/addButton.png"/>-->
 		</div>
-	</form>
+		<!--
+		<div id="rightPanel">
+			Title:         <input onchange="updateItem()" id="itemTitle"></input>
+			Description:   <input onchange="updateItem()" id="itemDesc"></input>
+			Ticket price: $<input onchange="updateItem()" id="itemPrice"></input>
+			Cost price:   $<input onchange="updateItem()" id="itemCostPrice"></input>
+			Stock:         <input onchange="updateItem()" id="itemStock"></input>
+		</div>
+		-->
+	</div>
 	
 </div>
