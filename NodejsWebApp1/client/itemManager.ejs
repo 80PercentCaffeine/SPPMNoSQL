@@ -1,29 +1,27 @@
 <div class="insertSection">
 
 	<div id="addItemBlock">
-		<form id="addItemForm" action="" method="post">
+		<form id="addItemForm" action="/addItem" method="post">
 			<fieldset>
 				<legend>Item details</legend>
-					<p><label for="itemTitle">Title</label></p>
-					<p><input type="text" onchange="updateItem()" name="item title" id="itemTitle" maxlength="50" size="50" required="required" pattern="[A-Za-z]{1,25}"/></p>
+                <p><label for="itemTitle">Title</label></p>
+					<p><input type="text" onchange="updateItem()" name="itemTitle" id="itemTitle" maxlength="50" size="50" required="required" pattern="[A-Za-z]{1,25}"/></p>
 					
 					<p><label for="itemPrice">Ticket Price</label></p>
-					<p><input type="text" onchange="updateItem()" name="ticket price" id="itemPrice" maxlength="50" size="50" required="required" pattern="[0-9]{1,25}"/></p>
+					<p><input type="text" onchange="updateItem()" name="ticketPrice" id="itemPrice" maxlength="50" size="50" required="required" pattern="[0-9]{1,25}"/></p>
 					
 					<p><label for="itemCostPrice">Cost Price</label></p>
-					<p><input type="text" onchange="updateItem()" name="cost price" id="itemCostPrice" maxlength="50" size="50" required="required" pattern="[0-9]{1,25}"/></p>
+					<p><input type="text" onchange="updateItem()" name="costPrice" id="itemCostPrice" maxlength="50" size="50" required="required" pattern="[0-9]{1,25}"/></p>
 					
 					<p><label for="itemStock">Quantity</label></p>
-					<p><input type="text" onchange="updateItem()" name="item quantity" id="itemStock" maxlength="50" size="50" required="required" pattern="[0-9]{1,25}"/></p>
+					<p><input type="text" onchange="updateItem()" name="itemQuantity" id="itemStock" maxlength="50" size="50" required="required" pattern="[0-9]{1,25}"/></p>
 					
 					<p><label for="itemDesc">Description</label></p>
-					<textarea name="item description" onchange="updateItem()" id="itemDesc" rows="6" cols="40" required="required"></textarea>
+					<textarea name="itemDesc" onchange="updateItem()" id="itemDesc" rows="6" cols="40" required="required"></textarea>
 			</fieldset>
-			<div>
-				<p><input type="submit" onclick="addItem()" value="Add"/>
+				<p><input type="submit" />
 				<input type="reset" value="Reset form"/>
 				</p>
-			</div>
 		</form>
 	</div>
 

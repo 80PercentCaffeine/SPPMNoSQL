@@ -1,4 +1,4 @@
-﻿var crypto = require('crypto');
+var crypto = require('crypto');
 var http = require('http');
 var express = require('express');
 var mongoose = require('mongoose');
@@ -7,9 +7,12 @@ var bodyParser = require("body-parser");
 var request = require("request");
 require('longjohn');
 require("console-stamp")(console, { pattern: "dd/mm/yyyy HH:MM:ss.l" });
+var Item = require('./model/item.model');
+var Sales = require('./model/sales.model');
+
 
 // This function creates a UUID that is nigh impossible to occur twice. (This function was taken from a previous project of Will Truscott's (9992022))
-function makeId(){
+function makeId() {
     var array = new Uint8Array(16);
     var val = new Uint8Array(1);
     crypto.getRandomValues(array);
@@ -98,6 +101,54 @@ app.all(function (req, res) {
     console.log("404 redirect...", { "root": rootdir });
     res.redirect("/404.html");
 });
+
+
+//gets the item details from the form and saves it to the database
+app.post('/addItem', function (req, res) {
+    console.log('adding the item');
+    var itemData = new Item({
+        id: 1111,
+        name: req.body.itemTitle,
+        description: req.body.itemDesc,
+        price: req.body.ticketPrice,
+        costprice: req.body.costPrice,
+        stock: req.body.itemQuantity
+    })
+
+    itemData.save(function (err) {
+        if (err) {
+            return err;
+        } else {
+            res.send("Successfully added");
+            console.log('item saved');
+        }
+    });
+});
+
+app.get('/viewItem', function (req, res) {
+    console.log('getting all items');
+    Item.find({}).exec(function (err, result) {
+        if (err) {
+            res.send('error has occured');
+        } else {
+            console.log(result);
+            //var jsonObj = JSON.parse(result);
+            res.send(result);
+        }
+    });
+});
+
+
+//connecting to the database
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://SPPMnoSQL:swinburne@ds019866.mlab.com:19866/sppmnosql', function (err, db) {
+    if (!err) {
+        console.log("We are connected");
+    } else {
+        console.log("Database not connected");
+    }
+});
+
 
 console.log("app running on port 2089");
 app.listen(2089);
