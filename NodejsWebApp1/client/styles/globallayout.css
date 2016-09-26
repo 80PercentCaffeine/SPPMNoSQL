@@ -46,3 +46,27 @@ footer {
 	right: 0;
 	width: 100%;
 }
+
+.insertSection {
+	text-align: center;
+	display: block;
+}
+
+#addItemBlock {
+	display: inline-block;
+	width: 45%;
+	overflow: auto;
+	float: left;
+	margin-right: 10px;
+	margin-top: 30px;
+}
+
+#itemManage {
+	display: inline-block;
+	margin-top: 30px;
+	margin-bottom: 50px;
+	margin-left: 10px;
+	width: 50%;
+	overflow: auto;
+	height: 500px;
+}
