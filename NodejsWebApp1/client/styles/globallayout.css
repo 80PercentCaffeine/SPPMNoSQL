@@ -48,27 +48,6 @@ footer {
 }
 
 .insertSection {
-    text-align: center;
-    display: block;
-}
-
-#addItemBlock {
-    display: inline-block;
-    width: 45%;
-    overflow: auto;
-    float: left;
-    margin-right: 10px;
-    margin-top: 30px;
-}
-
-#itemManage {
-    display: inline-block;
-    margin-top: 30px;
-    margin-bottom: 50px;
-    margin-left: 10px;
-    width: 50%;
-    overflow: auto;
-    height: 500px;
 	text-align: center;
 	display: block;
 }
@@ -90,4 +69,38 @@ footer {
 	width: 50%;
 	overflow: auto;
 	height: 500px;
+}
+
+/*@see http://www.w3schools.com/css/css_table.asp*/
+table {
+    border-collapse: collapse;
+    width: : 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    background-color: white;
+    border: 1px solid darkgray;
+}
+
+table, th, td {
+    padding: 15px;
+}
+
+th {
+    height: 50px;
+    font-weight: bold;
+}
+
+tr:hover, tr:nth-child(even):hover {
+    background-color: aliceblue;
+}
+
+tr:nth-child(even) {
+    background-color: whitesmoke;
+}
+
+#itemDisplay {
+    width: 100%;
 }
