@@ -5,6 +5,10 @@ myApp.config(function($routeProvider){
         controller:'itemController',
         templateUrl:'itemManager.ejs'
     })
+    .when('/?Page=MakeSales',{
+        controller:'itemController',
+        templateUrl:'makeSales.ejs'
+    })
     
     .when('/',{
         controller: 'itemController',

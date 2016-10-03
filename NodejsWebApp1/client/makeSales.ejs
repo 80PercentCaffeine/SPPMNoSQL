@@ -1,1 +1,87 @@
-<h1>makeSales</h1>
+	<div style="width: 100%; float: left;    
+    background: linear-gradient(to top left, #333, #ddd);    padding: 10px;
+    padding-right: 0px;
+    padding-left: 0;">
+   <input type="search" name="q" placeholder="Type your query"> 
+   <input type="submit" value="Search">
+   <select>
+   <option>Filter1</option>
+   <option>Filter2</option>
+   </select>
+
+    </div>
+
+ <div class="block-left" ng-controller = "itemController">
+              <div  ng-init="getItems()">                        
+                            <table class = "table table-responsive table-bordered table-striped table hover">
+                                 <thead>
+                                      <tr>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th> Total Price</th>
+                                      </tr>
+                                </thead>
+                                
+                                    <tr ng-repeat = "item in returnedItems">
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.price}}</td>
+                                        <td><input type="number" name="itemQuantity" id="itemStock" maxlength="50" size="50" required="required" pattern="[0-9]{1,25}"/><td>
+                                        <td>{{item.price}} * item</td>
+                                        <td><button type = "button">Add</button></td>
+                                  </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Total</td>
+                                </tr>
+                                  
+                            </table>
+                                
+                        
+                    </div>
+        </div>
+       
+ 
+
+</div>
+
+<div class="block-right">
+    <table id="table2">
+  
+  <tr>
+    <th>Item</th>
+    <th></th>
+    <th>Price</th>
+  </tr>
+  <tr>
+    <td>Item6</td>
+    <td><a href="javascript:void()" class="button rmv">Remove</a></td>
+    <td>190</td>
+      </tr>
+  <tr>
+   <td>Item7</td>
+    <td><a href="javascript:void()" class="button rmv">Remove</a></td>
+    <td>190</td>
+  </tr>
+  <tr>
+   <td>Item8</td>
+    <td><a href="javascript:void()" class="button rmv">Remove</a></td>
+    <td>190</td>
+  </tr>
+  <tr>
+    <td>Item9</td>
+    <td><a href="javascript:void()" class="button rmv">Remove</a></td>
+    <td>190</td>
+  </tr>
+  <tr>
+    <td>Item10</td>
+    <td><a href="javascript:void()" class="button rmv">Remove</a></td>
+    <td>190</td>
+  </tr>
+</table>
+
+</div>
+</div></div>
+</section>
