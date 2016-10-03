@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
 <head>
 	<meta charset="utf-8"/>
 	<meta name="description" content="NoSQL Team Project"/>
@@ -9,6 +9,7 @@
 	<title>Sale (Generic)</title>
 	<link href="styles/globallayout.css" rel="stylesheet"/>
 	<link href="styles/globaltext.css" rel="stylesheet"/>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css">
 	<script src='scripts/index.js'></script>
 
 	<%if (query.Page == "MakeSales") { %>
@@ -67,5 +68,12 @@
 	<footer>
 		<h4>Contact us: <a href="">nosqlteam@gmail.com</a></h4>
 	</footer>
+            
+<script src = "/bower_components/jquery/dist/jquery.js"></script>
+<script src = "/bower_components/angular/angular.js"></script>
+<script src = "/bower_components/angular-route/angular-route.js"></script>
+<script src = "/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src = "/app.js"></script>
+<script src = "/controller/itemController.js"></script>  
 </body>
 </html>
