@@ -40,8 +40,8 @@ function makeId() {
 }
 
 // sets the directory of the client folder in reference to the server
-global.rootdir = __dirname + "\\" + "\client";
-var rootdir = __dirname + "\\" + "\client";
+global.rootdir = __dirname +  "/client";
+var rootdir = __dirname +  "/client";
 var app = express();
 
 // needed forejs rendering

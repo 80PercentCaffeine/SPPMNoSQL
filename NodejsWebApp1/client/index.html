@@ -38,10 +38,18 @@
 		
 		<!-- menu -->
 		<nav>
-			<a href="http://localhost:2089/?Page=MakeSales">MAKE SALES</a>
-			<a href="http://localhost:2089/?Page=ManageItems">MANAGE ITEMS</a>
-			<a href="http://localhost:2089/?Page=ManageSales">VIEW SALES RECORDS</a>
-			<a href="http://localhost:2089/?Page=Predictions">PREDICTIONS</a>
+		<img class="menuimg" src="images/shoppingcart.png">
+			<a href="?Page=MakeSales">MAKE SALES</a>
+			<img class="menuimgb" src="images/invoice.png">
+			
+			<a href="?Page=ManageItems">MANAGE ITEMS</a>
+			<img class="menuimgc" src="images/documentwriteicon.png">
+			
+			<a href="?Page=ManageSales">VIEW SALES RECORDS</a>
+			<img class="menuimg" src="images/information.png">
+			
+			<a href="?Page=Predictions">PREDICTIONS</a>
+
 			<div style="width:10%; position:center;"id="lowStockContainer" onmouseover="showLowStockItems()" onmouseout="hideLowStockItems()">
 				<h1 id="stockLowAlert">Stock is low</h1>
 				<div style="position:absolute; left:inherit" id="lowStockNotificationDisplay" hidden></div>
