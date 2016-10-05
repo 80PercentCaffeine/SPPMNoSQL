@@ -7,5 +7,33 @@ myApp.controller('itemController', ['$scope', '$http', '$location', '$routeParam
                      $scope.returnedItems = response;                                
             });
         }
-    
+         
+            $scope.salesItems = [];
+            
+            $scope.calculatePrice=function(item, itemQuantity){
+                $scope.price = item.price;
+                $scope.quantity = itemQuantity;
+                $scope.itemName = item.name;
+                var total;
+                $scope.total = $scope.price * $scope.quantity;
+                
+                //add to array of sales items
+                $scope.salesItems = $scope.salesItems.concat ([
+                {"name" : $scope.itemName, "totalPrice" : $scope.total}
+                ]);
+                
+                
+                $scope.totalSalePrice = 0;
+                console.log($scope.totalSalePrice);
+                
+                for (var i = 0; i < $scope.salesItems.length; i++)
+                    {
+                        $scope.totalSalePrice += $scope.salesItems[i].totalPrice;
+                    }
+                
+                console.log($scope.total);
+                console.log($scope.totalSalePrice);
+            }
+            
+            
 }]);

@@ -195,3 +195,32 @@ var fakeDatabase = [
     { "UUID": makeId(), "name": "hello", "price": "20", "costprice": "10" }, 
 	{ "UUID": makeId(), "name": "hello2", "price": "11", "costprice": "5" }
 ]
+
+$(document).ready(function(){
+	$('body').on('click', '.editItem', function(){
+//		console.log(this.parentNode.parentNode)
+		tr=this.parentNode.parentNode;
+		console.log(tr)
+		$('#itemTitle')    .val(tr.childNodes[1].innerText);
+		$('#itemPrice')    .val(tr.childNodes[5].innerText);
+		$('#itemCostPrice').val(tr.childNodes[7].innerText);
+		$('#itemStock')    .val(tr.childNodes[9].innerText);
+		$('#itemDesc')     .val(tr.childNodes[3].innerText);
+		$('#_id')          .val(this.dataset['id'])
+	})
+/*	$('body').on('click', '#addItemSubmit', function(){
+		$.ajax({
+		    type: "POST",
+		    url: "/addItem",
+	    	data: $('#addItemForm').serialize(),
+//		    dataType: "json",
+		    success: function(data) {
+        	//var obj = jQuery.parseJSON(data); if the dataType is not specified as json uncomment this
+	        // do what ever you want with the server response
+		    },
+	    	error: function() {
+		        alert('An error has occured while updating the item');
+	    }
+});
+	})*/
+})
