@@ -18,8 +18,10 @@
 					
 					<p><label for="itemDesc">Description</label></p>
 					<textarea name="itemDesc" onchange="updateItem()" id="itemDesc" rows="6" cols="40" required="required"></textarea>
+					<input type='hidden' name='_id' id='_id'/>
 			</fieldset>
 				<p><input type="submit" />
+				<!--button type='button' id='addItemSubmit'>Submit</button-->
 				<input type="reset" value="Reset form"/>
 				</p>
 		</form>
@@ -58,6 +60,7 @@
                                         <td>{{item.price}}</td>
                                         <td>{{item.costprice}}</td>
                                         <td>{{item.stock}}</td>  
+                                        <td><button type='button' class='editItem' data-id={{item._id}}>Edit</button></td>  
                                   </tr>
                                   
                             </table>

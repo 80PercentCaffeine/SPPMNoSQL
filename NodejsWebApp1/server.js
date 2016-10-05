@@ -106,6 +106,7 @@ app.all(function (req, res) {
 //gets the item details from the form and saves it to the database
 app.post('/addItem', function (req, res) {
     console.log('adding the item');
+if(req.body._id==''){
     var itemData = new Item({
         id: 1111,
         name: req.body.itemTitle,
@@ -119,10 +120,29 @@ app.post('/addItem', function (req, res) {
         if (err) {
             return err;
         } else {
-            res.send("Successfully added");
+            res.send("Successfully added<script>//setTimeout('location.href=\\'/?Page=ManageItems\\'', 1000)</script>");
             console.log('item saved');
         }
     });
+}else{
+	Item.findOneAndUpdate(
+		{_id: req.body._id},
+		{
+	        id: 1111,
+    	    name: req.body.itemTitle,
+        	description: req.body.itemDesc,
+	        price: req.body.ticketPrice,
+    	    costprice: req.body.costPrice,
+        	stock: req.body.itemQuantity
+		},
+		function(){
+            res.send("Successfully updated<script>//setTimeout('location.href=\\'/?Page=ManageItems\\'', 1000)</script>");
+            console.log('item saved');
+
+		}
+	);
+}
+
 });
 
 app.get('/viewItem', function (req, res) {
