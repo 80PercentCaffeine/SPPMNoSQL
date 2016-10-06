@@ -158,6 +158,42 @@ app.get('/viewItem', function (req, res) {
     });
 });
 
+app.get('/viewSale', function (req, res) {
+    console.log('getting all sales');
+    Sales.find({}).exec(function (err, result) {
+        if (err) {
+            res.send('error has occured');
+        } else {
+            console.log(result);
+            //var jsonObj = JSON.parse(result);
+            res.send(result);
+        }
+    });
+});
+
+//gets the item details from the form and saves it to the database
+app.post('/addSale', function (req, res) {
+    console.log('adding the sales');
+    var itemData = new Sales({
+        id: 1111,
+        items: req.body.items,
+        total: req.body.total,
+        totalprofit: req.body.totalprofit,
+        timestamp: Date.now().valueOf()
+    })
+
+    itemData.save(function (err) {
+        if (err) {
+            return err;
+        } else {
+            res.send("Successfully added<script>//setTimeout('location.href=\\'/?Page=makeSales\\'', 1000)</script>");
+            console.log('item saved');
+        }
+    });
+}
+
+});
+
 
 //connecting to the database
 mongoose.Promise = global.Promise;
