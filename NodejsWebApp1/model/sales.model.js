@@ -7,6 +7,6 @@ var salesSchema = mongoose.Schema({
    items: [String],
    total: Number,
    totalprofit: Number,
-   //timestamp: Date.now
+   timestamp: Number
 })
 module.exports = mongoose.model('Sales', salesSchema);
