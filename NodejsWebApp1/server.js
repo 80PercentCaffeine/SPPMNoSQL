@@ -152,7 +152,6 @@ app.get('/viewItem', function (req, res) {
             res.send('error has occured');
         } else {
             console.log(result);
-            //var jsonObj = JSON.parse(result);
             res.send(result);
         }
     });
@@ -165,7 +164,6 @@ app.get('/viewSale', function (req, res) {
             res.send('error has occured');
         } else {
             console.log(result);
-            //var jsonObj = JSON.parse(result);
             res.send(result);
         }
     });

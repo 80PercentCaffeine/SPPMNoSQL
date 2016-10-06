@@ -182,7 +182,7 @@ function sortItemsByProfitAllTime(a, b) {
 }
 
 function setupPage(docsSales) {
-	salesList = docsSales;
+	salesList = JSON.parse(docsSales.target.response);
 
 	// report list
 	var reportTable = document.getElementById("reportDisplay");
@@ -346,10 +346,11 @@ function setupPage(docsSales) {
 	weeklyReport();
 	monthlyReport();
 	allTimeReport();
+	weeklyPrediction();
 }
 
 function setupItems(docsItems) {
-	itemList = docsItems;
+	itemList = JSON.parse(docsItems.target.response);
 	var dropdown = document.getElementById("itemDropdown");
 	for (var i = 0; i < itemList.length; i++) {
 		var dropdownOption = document.createElement("Option");
@@ -357,11 +358,18 @@ function setupItems(docsItems) {
 		dropdownOption.value = itemList[i].UUID;
 		dropdown.appendChild(dropdownOption);
 	}
-	setupPage(fakeSalesDatabase)
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("get", "/viewSale");
+	xhr.onload = setupPage;
+	xhr.send();
 }
 
 function init() {
-	setupItems(fakeItemsDatabase);
+	var xhr = new XMLHttpRequest();
+	xhr.open("get", "/viewItem");
+	xhr.onload = setupItems;
+	xhr.send();
 }
 
 var fakeItemsDatabase = [
