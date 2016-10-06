@@ -26,7 +26,7 @@
                                     <tr ng-repeat = "item in returnedItems">
                                         <td>{{item.name}}</td>
                                         <td id="itemPrice">{{item.price}}</td>
-                                        <td><input type="number" name="itemQuantity" id="itemStock" ng-model="itemQuantity" maxlength="50" size="50" required="required" pattern="[0-9]{1,25}"/>
+                                        <td><input type="number" name="itemQuantity" id="itemStock" ng-model="itemQuantity" ng-value="1" maxlength="50" size="50" required="required" pattern="[0-9]{1,25}"/>
                                         </td>
                                         <td id="totalSingleItemPrice"></td>
                                         <td><button type = "button" ng-click="calculatePrice(item, itemQuantity)">Add</button></td>

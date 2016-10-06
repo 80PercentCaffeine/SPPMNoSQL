@@ -12,7 +12,12 @@ myApp.controller('itemController', ['$scope', '$http', '$location', '$routeParam
             
             $scope.calculatePrice=function(item, itemQuantity){
                 $scope.price = item.price;
-                $scope.quantity = itemQuantity;
+				if(itemQuantity == undefined){
+					$scope.quantity = 1;
+				}
+				else{
+					$scope.quantity = itemQuantity;
+				}
                 $scope.itemName = item.name;
                 var total;
                 $scope.total = $scope.price * $scope.quantity;
