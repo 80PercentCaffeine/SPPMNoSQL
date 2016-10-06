@@ -105,10 +105,18 @@ app.all(function (req, res) {
 
 //gets the item details from the form and saves it to the database
 app.post('/addItem', function (req, res) {
-    console.log('adding the item');
+
+	try{
+		req.body = JSON.parse(req.body)
+	}
+	catch (e){
+		console.log("That's not JSON.");
+	}
+		console.log(req.body);
+    console.log('adding the item ' + req.body._id);
 if(req.body._id==''){
     var itemData = new Item({
-        id: 1111,
+        UUID: req.body._id,
         name: req.body.itemTitle,
         description: req.body.itemDesc,
         price: req.body.ticketPrice,
@@ -125,22 +133,41 @@ if(req.body._id==''){
         }
     });
 }else{
-	Item.findOneAndUpdate(
+	if(req.body.hidden){
+		Item.findOneAndUpdate(
+	
 		{_id: req.body._id},
 		{
-	        id: 1111,
-    	    name: req.body.itemTitle,
-        	description: req.body.itemDesc,
-	        price: req.body.ticketPrice,
-    	    costprice: req.body.costPrice,
-        	stock: req.body.itemQuantity
+			UUID: req.body._id,
+        	hidden: req.body.hidden
 		},
-		function(){
-            res.send("Successfully updated<script>//setTimeout('location.href=\\'/?Page=ManageItems\\'', 1000)</script>");
+		function(err){
+			console.log(err);
+            res.send("Successfully hidden<script>//setTimeout('location.href=\\'/?Page=ManageItems\\'', 1000)</script>");
             console.log('item saved');
-
 		}
-	);
+		);
+	}
+	else{
+		Item.findOneAndUpdate(
+		
+			{_id: req.body._id},
+			{
+				UUID: req.body._id,
+				name: req.body.itemTitle,
+				description: req.body.itemDesc,
+				price: req.body.ticketPrice,
+				costprice: req.body.costPrice,
+				stock: req.body.itemQuantity
+			},
+			function(err){
+				console.log(err);
+				res.send("Successfully updated<script>//setTimeout('location.href=\\'/?Page=ManageItems\\'', 1000)</script>");
+				console.log('item saved');
+	
+			}
+		);
+	}
 }
 
 });
@@ -188,8 +215,6 @@ app.post('/addSale', function (req, res) {
             console.log('item saved');
         }
     });
-}
-
 });
 
 

@@ -54,13 +54,14 @@
                                       </tr>
                                 </thead>
                                 
-                                    <tr ng-repeat = "item in returnedItems">
+                                    <tr ng-repeat = "item in returnedItems" ng-if="!item.hidden">
                                         <td>{{item.name}}</td>
                                         <td>{{item.description}}</td>
                                         <td>{{item.price}}</td>
                                         <td>{{item.costprice}}</td>
                                         <td>{{item.stock}}</td>  
                                         <td><button type='button' class='editItem' data-id={{item._id}}>Edit</button></td>  
+                                        <td><button type='button' class='deleteItem' data-id={{item._id}}>Delete</button></td>  
                                   </tr>
                                   
                             </table>

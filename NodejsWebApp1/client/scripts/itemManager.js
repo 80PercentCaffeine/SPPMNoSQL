@@ -208,6 +208,23 @@ $(document).ready(function(){
 		$('#itemDesc')     .val(tr.childNodes[3].innerText);
 		$('#_id')          .val(this.dataset['id'])
 	})
+	
+	$('body').on('click', '.deleteItem', function(){
+//		console.log(this.parentNode.parentNode)
+		console.log("Hello?");
+		tr=this.parentNode.parentNode;
+		tr.remove();
+		var xhr = new XMLHttpRequest();
+		xhr.open("post", "/addItem");
+		xhr.send(JSON.stringify({"_id":this.dataset['id'], "hidden":true}));
+		//console.log(tr)
+		//$('#itemTitle')    .val(tr.childNodes[1].innerText);
+		//$('#itemPrice')    .val(tr.childNodes[5].innerText);
+		//$('#itemCostPrice').val(tr.childNodes[7].innerText);
+		//$('#itemStock')    .val(tr.childNodes[9].innerText);
+		//$('#itemDesc')     .val(tr.childNodes[3].innerText);
+		//$('#_id')          .val(this.dataset['id'])
+	})
 /*	$('body').on('click', '#addItemSubmit', function(){
 		$.ajax({
 		    type: "POST",
