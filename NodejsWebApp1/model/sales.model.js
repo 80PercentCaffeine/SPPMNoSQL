@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var salesSchema = mongoose.Schema({
    id: { type: String, required: true },
+   UUID: String,
    // list of item ids
    items: [String],
    total: Number,

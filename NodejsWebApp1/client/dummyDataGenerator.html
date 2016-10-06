@@ -1,0 +1,80 @@
+<head>
+	<script>
+		// This function creates a UUID that is nigh impossible to occur twice. (This function was taken from a previous project of Will Truscott's (9992022))
+function makeId() {
+    var array = new Uint8Array(16);
+    var val = new Uint8Array(1);
+    crypto.getRandomValues(array);
+    var idx = 0;
+    var shouldincrement = false;
+    var uuidtemplate = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx";
+    var makeuuidregex = /[xy]/g;
+    
+    return uuidtemplate.replace(makeuuidregex,
+			function (c) {
+        if (c == 'x') {
+            if (!shouldincrement) {
+                val[0] = array[idx] >>> 4;
+            } else {
+                val[0] = array[idx] << 4;
+                val[0] = val[0] >>> 4;
+                idx++;
+            }
+            shouldincrement = !shouldincrement;
+            return val[0].toString(16);
+        } else {
+            return (0x8 + (array[idx] >>> 6)).toString(16);
+        }
+    });
+}
+	
+		function init(){
+			var xhr = new XMLHttpRequest();
+			xhr.open("get", "/viewitem");
+			xhr.onload = function(resp){
+				console.log("aaaa");
+				var items = JSON.parse(resp.target.response);
+				document.getElementById("output").innerHTML = items;
+				
+				// 7 years
+				for(var i = 0; i < 7; i++){
+					//per year
+					for(var j = 0; j < 365; j++){
+						var dateObj = Date.now().valueOf();
+						var itemList = [];
+						var income = 0;
+						var profit = 0;
+						for(var k = 0; k < items.length; k++){
+							if(Math.random() < 0.4){
+								income += items[k].price;
+								profit += items[k].price - items[k].costprice;
+								itemList.push(items[k]._id);
+							}
+						}
+						
+						var newSale = {
+							timestamp: dateObj - (i*86400000*365) - (j*86400000),
+							id: makeId(),
+							items: itemList,
+							total: income,
+							totalprofit: profit
+						}
+						
+						var xhr = new XMLHttpRequest();
+						xhr.open("post", "/addSale");
+						xhr.onload = function(resp){
+							document.getElementById("output").innerHTML = "done"
+						}
+						xhr.send(JSON.stringify(newSale));
+					}
+				}
+				
+			}
+			xhr.send();
+		}
+	</script>
+</head>
+<body onload="init()">
+	<div id="output">
+	</div>
+</body>

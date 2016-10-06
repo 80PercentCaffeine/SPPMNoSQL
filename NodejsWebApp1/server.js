@@ -105,7 +105,6 @@ app.all(function (req, res) {
 
 //gets the item details from the form and saves it to the database
 app.post('/addItem', function (req, res) {
-
 	try{
 		req.body = JSON.parse(req.body)
 	}
@@ -113,19 +112,24 @@ app.post('/addItem', function (req, res) {
 		console.log("That's not JSON.");
 	}
 		console.log(req.body);
+    console.log('adding the item ' + req.body.id);
+    console.log('adding the item ' + req.body.UUID);
     console.log('adding the item ' + req.body._id);
 if(req.body._id==''){
     var itemData = new Item({
+        id: req.body._id,
         UUID: req.body._id,
         name: req.body.itemTitle,
         description: req.body.itemDesc,
         price: req.body.ticketPrice,
         costprice: req.body.costPrice,
-        stock: req.body.itemQuantity
+        stock: req.body.itemQuantity,
+		minimumstock: req.body.itemQuantity
     })
 
     itemData.save(function (err) {
         if (err) {
+			console.log(err);
             return err;
         } else {
             res.send("Successfully added<script>//setTimeout('location.href=\\'/?Page=ManageItems\\'', 1000)</script>");
@@ -138,6 +142,7 @@ if(req.body._id==''){
 	
 		{_id: req.body._id},
 		{
+			id: req.body._id,
 			UUID: req.body._id,
         	hidden: req.body.hidden
 		},
@@ -188,9 +193,9 @@ app.get('/viewSale', function (req, res) {
     console.log('getting all sales');
     Sales.find({}).exec(function (err, result) {
         if (err) {
+			console.log(err);
             res.send('error has occured');
         } else {
-            console.log(result);
             res.send(result);
         }
     });
@@ -198,17 +203,26 @@ app.get('/viewSale', function (req, res) {
 
 //gets the item details from the form and saves it to the database
 app.post('/addSale', function (req, res) {
+	try{
+		req.body = JSON.parse(req.body)
+	}
+	catch (e){
+		console.log("That's not JSON.");
+	}
     console.log('adding the sales');
+	console.log(req.body.id);
     var itemData = new Sales({
-        id: 1111,
+        id: req.body.id,
+        UUID: req.body.id,
         items: req.body.items,
         total: req.body.total,
         totalprofit: req.body.totalprofit,
-        timestamp: Date.now().valueOf()
+        timestamp: req.body.timestamp
     })
 
     itemData.save(function (err) {
         if (err) {
+			console.log(err);
             return err;
         } else {
             res.send("Successfully added<script>//setTimeout('location.href=\\'/?Page=makeSales\\'', 1000)</script>");

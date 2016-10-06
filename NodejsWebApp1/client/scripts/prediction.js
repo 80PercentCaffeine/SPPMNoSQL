@@ -73,6 +73,10 @@ function monthlyReport() {
 	addReport("Last 30 days", incomeBetween(timeNow - (ONE_DAY * 30), timeNow), "reportDisplay");
 }
 
+function weeklyPrediction(){
+	
+}
+
 function allTimeReport() {
 	var timeNow = Date.now();
 	addReport("All time", incomeBetween(0, timeNow), "reportDisplay");
@@ -353,6 +357,9 @@ function setupItems(docsItems) {
 	itemList = JSON.parse(docsItems.target.response);
 	var dropdown = document.getElementById("itemDropdown");
 	for (var i = 0; i < itemList.length; i++) {
+		if(itemList[i].UUID == undefined){
+			itemList[i].UUID = itemList[i]._id;
+		}
 		var dropdownOption = document.createElement("Option");
 		dropdownOption.innerHTML = itemList[i].name;
 		dropdownOption.value = itemList[i].UUID;
